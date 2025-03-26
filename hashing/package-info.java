@@ -1,0 +1,2 @@
+/** Hash algorithms */
+package hashing;
