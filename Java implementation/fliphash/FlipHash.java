@@ -1,6 +1,8 @@
 package fliphash;
+
 import java.io.*;
 import java.util.Scanner;
+import fliphash.xxh3Java.hashing.*;
 
 public class FlipHash {
 
@@ -56,25 +58,30 @@ public class FlipHash {
     }
 
     // Computes a seeding value based on two short values
-    private static int seeding(short a, short b) {
+    private static long seeding(short a, short b) {
         return a + (b << 16);
     }
 
     // Implements the fliphashPow2 function from the C code.
     private static long fliphashPow2(String key, int twoPower) {
-        long a = xxh3_64bits_withSeed(key, KEY_SIZE_FLIPHASH, seeding((short) 0, (short) 0)) & ((1L << twoPower) - 1);
+
+        Hasher64 xxh3 = XXH3_64.create(seeding((short) 0, (short) 0));
+        long a = xxh3.hashCharsToLong(key) & ((1L << twoPower) - 1);
+
         long temp = a;
         int b = 0;
         while (temp > 1) {
             temp >>= 1;
             b++;
         }
-        long c = xxh3_64bits_withSeed(key, KEY_SIZE_FLIPHASH, seeding((short) b, (short) 0)) & ((1L << b) - 1);
+        //long c = xxh3_64bits_withSeed(key, KEY_SIZE_FLIPHASH, seeding((short) b, (short) 0)) & ((1L << b) - 1);
+        xxh3 = XXH3_64.create(seeding((short) b, (short) 0));
+        long c = xxh3.hashCharsToLong(key) & ((1L << b) - 1);
         return a + c;
     }
 
     // Implements the fliphashGeneral function using the number of resources.
-    private static long fliphashGeneral(String key, Resource resource) {
+    public static long fliphashGeneral(String key, Resource resource) {
         long numResources = resource.count;
         int r = 0;
         // Calculate the number of bits required (r is essentially log2(numResources) rounded up)
@@ -87,9 +94,12 @@ public class FlipHash {
         } else {
             long rNegative1 = 1L << (r - 1);
             long e;
+            Hasher64 xxh3;
+
             for (int i = 0; i < 64; i++) {
-                e = xxh3_64bits_withSeed(key, KEY_SIZE_FLIPHASH, seeding((short) (r - 1), (short) i))
-                        & ((1L << r) - 1);
+                xxh3 = XXH3_64.create(seeding((short) (r-1) , (short) i));
+                e = xxh3.hashCharsToLong(key) & ((1L << r) - 1);
+
                 if (e < rNegative1) {
                     return fliphashPow2(key, r - 1);
                 } else if (e < numResources) {
@@ -134,4 +144,15 @@ public class FlipHash {
             }
         }
     }
+    private static long xxh3_64bits_withSeed(String input, int keySize, int seed) {
+        byte[] bytes = input.getBytes();
+        long hash = seed;
+        int len = Math.min(bytes.length, keySize);
+        for (int i = 0; i < len; i++) {
+            // Using a simple mixing function; note that this is not the actual xxHash3 algorithm.
+            hash = hash * 31 + (bytes[i] & 0xff);
+        }
+        return hash;
+    }
+
 }
