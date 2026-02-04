@@ -1,0 +1,10 @@
+Load Balancer listening for backend metrics on port 6003
+Load Balancer waiting for backend registration on port 6001
+Load Balancer listening for clients on port 5000
+Registered backend: 10.110.30.105:6002
+Registered backend: 10.110.30.161:6002
+Forwarding client 10.110.30.161:51717 to backend 10.110.30.105:6002
+Forwarding client 10.110.30.161:51719 to backend 10.110.30.161:6002
+Backend removed: 10.110.30.161:6002
+Backend removed (inactive): 10.110.30.161:6002
+Registered backend: 10.110.30.161:6002
