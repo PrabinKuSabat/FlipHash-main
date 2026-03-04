@@ -105,13 +105,13 @@ Handles any arbitrary N using `fliphashPow2` as a building block:
     For i = 0 → 63:
         e = H(key, seed(r-1, i)) mod 2^r
 
-        e < 2^(r-1)  →  return fliphashPow2(key, r-1)    ← “flip down” 🔃
+        e < 2^(r-1)  →  return fliphashPow2(key, r-1)    ← "flip down" 🔃
         e < N        →  return e                           ← remap to valid zone ✅
             ↓
 5.  Fallback: return fliphashPow2(key, r-1)
 ```
 
-**The “flip” insight:** When a key lands in the forbidden zone \[N, 2^r), the algorithm flips it either down to \[0, 2^(r-1)) or maps it directly to the valid upper zone \[2^(r-1), N). This is the namesake operation that gives FlipHash its O(1) complexity — no iteration over the full N range.
+**The "flip" insight:** When a key lands in the forbidden zone \[N, 2^r), the algorithm flips it either down to \[0, 2^(r-1)) or maps it directly to the valid upper zone \[2^(r-1), N). This is the namesake operation that gives FlipHash its O(1) complexity — no iteration over the full N range.
 
 **Java code from `FlipHash.java`:**
 ```java
@@ -148,7 +148,7 @@ public static long fliphashGeneral(String key, Resource resource) {
 | Sequential resource indexing | Required | Required |
 | Speed at large N | Slower | **Faster** |
 
-> From the paper: *"FlipHash beats Jump Consistent Hash’s cost both theoretically and in experiments over practical settings."*
+> From the paper: *"FlipHash beats Jump Consistent Hash's cost both theoretically and in experiments over practical settings."*
 
 ---
 
@@ -221,4 +221,17 @@ Enables the Java implementation to interface with native system libraries.
 Implemented by [Prabin Kumar Sabat](https://prabins.vercel.app)  
 Based on research by [Charles Masson & Homin K. Lee](https://arxiv.org/abs/2402.17549)
 
+</div>
+
+---
+
+<div align="center">
+  <br/>
+  <a href="https://www.sssihl.edu.in" target="_blank" rel="noopener noreferrer">
+    <img src="assets/sssihl-logo.png" alt="Sri Sathya Sai Institute of Higher Learning" width="140" />
+    <br/>
+    <b>Sri Sathya Sai Institute of Higher Learning</b>
+  </a>
+  <br/>
+  <sub>Prasanthi Nilayam (Puttaparthi) — Department of Mathematics and Computer Science</sub>
 </div>
