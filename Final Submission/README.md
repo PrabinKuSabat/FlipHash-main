@@ -1,43 +1,39 @@
 # 🏆 Final Submission
 
-Official final project submission artifacts for the **FlipHash implementation project** (Roll No: 24010203007).
+The official final academic project submission for the FlipHash implementation project.
 
----
-
-## 📄 Contents
+## Contents
 
 | File / Folder | Description |
 |---------------|-------------|
-| `24010203007_Fliphash.zip` | Initial submission package |
-| `24010203007_FliphashFinal.zip` | Final revised submission package |
-| `24010203007_Fliphash/` | Extracted contents of the initial submission |
-| `24010203007_FliphashFinal/` | Extracted contents of the final submission |
-| `fliphash/` | Final source code directory included in submission |
-| `Makefile` | Build script included in the final submission |
-| `prabin@10.110.11.34` | Transfer artifact (SCP/rsync from lab machine) |
+| `24010203007_Fliphash.zip` | First submission archive |
+| `24010203007_FliphashFinal.zip` | **Final** submission archive (most recent) |
+| `24010203007_Fliphash/` | Extracted first submission |
+| `24010203007_FliphashFinal/` | Extracted final submission |
+| `Makefile` | Build script for the final submission |
+| `fliphash/` | Source files included in the submission |
 
 ---
 
-## 📦 What the Submission Contains
+## About the Submission
 
-The zip packages bundle the complete project as submitted for evaluation, including:
+This folder contains the packaged submission for the FlipHash project — an implementation of the consistent range-hashing algorithm described in the paper:
 
-- Source code for both C and Java implementations
-- Makefile for building the C implementation
-- Documentation and README files
-- Compiled binaries
+> **FlipHash: A Constant-Time Consistent Range-Hashing Algorithm**  
+> Charles Masson, Homin K. Lee — [arXiv:2402.17549](https://arxiv.org/abs/2402.17549)
 
----
+The submission ID prefix `24010203007` is the student registration number.
 
-## 🛠️ Building from the Submission Package
+## Build (from submission)
 
 ```bash
-unzip 24010203007_FliphashFinal.zip
-cd 24010203007_FliphashFinal
+cd "Final Submission"
 make
-./fliphash
 ```
 
----
+## Full Source
 
-> 📌 This folder represents the **official graded submission**. For active development, refer to the `C implementation./` and `Java implementation/` folders at the repo root.
+For the complete, well-documented source code, see:
+- **Java implementation:** [`../Java implementation/fliphash/`](../Java%20implementation/fliphash/)
+- **C implementation:** [`../C implementation./`](../C%20implementation./)
+- **Root README:** [`../README.md`](../README.md)

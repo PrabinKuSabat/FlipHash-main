@@ -1,59 +1,41 @@
 # 📦 Jar Files
 
-Java JAR (Java ARchive) packaging demo. This folder contains a working example of how to compile Java source, bundle it into a `.jar` file, and run it using a custom manifest.
+Precompiled JAR files for running the FlipHash Java implementation without needing to compile from source.
 
----
+## Contents
 
-## 📄 Files
-
-| File | Purpose |
-|------|---------|
-| `MatrixMultiplication.java` | Sample Java program demonstrating matrix multiplication |
-| `MatrixMultiplication.class` | Compiled bytecode |
-| `manifest.txt` | JAR manifest file specifying the `Main-Class` entry point |
-
----
-
-## 🚀 How to Build and Run the JAR
-
-### Step 1: Compile
+This folder contains one or more standalone `.jar` files that can be run directly with:
 
 ```bash
-javac MatrixMultiplication.java
+java -jar <filename>.jar
 ```
 
-### Step 2: Package into a JAR
+## When to Use These
+
+Use the JARs in this folder when you:
+- Want to **run the demo quickly** without setting up a Java development environment
+- Need a **prebuilt artifact** for deployment or testing
+- Are on a machine where `javac` is not available but `java` (JRE) is installed
+
+## Full JAR (with dependencies)
+
+The `Backend.jar` inside `Java implementation/fliphash/` is a fat JAR that includes all dependencies (OSHI, JNA, SLF4J) and can be run standalone:
 
 ```bash
-jar cfm MatrixMultiplication.jar manifest.txt MatrixMultiplication.class
+java -jar "Java implementation/fliphash/Backend.jar"
 ```
 
-### Step 3: Run the JAR
+## Building Your Own JAR
+
+To rebuild the JAR from source:
 
 ```bash
-java -jar MatrixMultiplication.jar
+cd "Java implementation/fliphash"
+javac -cp ".:jna-5.13.0.jar:oshi-core-6.3.0.jar:slf4j-api-2.0.9.jar:slf4j-simple-2.0.9.jar" *.java
+jar cfm MyFlipHash.jar META-INF/MANIFEST.MF *.class fliphash/ xxh3Java/ hashing/ backend/ client/
 ```
 
----
+## 🔗 References
 
-## 📝 manifest.txt Format
-
-The manifest file specifies which class contains the `main()` entry point:
-
-```
-Main-Class: MatrixMultiplication
-```
-
-> ⚠️ The manifest must end with a newline, otherwise the JAR will fail to recognize the entry point.
-
----
-
-## 🧠 Why JAR Files?
-
-JAR files bundle multiple `.class` files, resources, and metadata into a single distributable archive. They allow Java applications to be:
-
-- **Distributed** as a single file
-- **Run** with a single `java -jar` command
-- **Included** as a library dependency in other projects via the CLASSPATH
-
-> 💡 This folder serves as a **learning artifact** for JAR packaging, separate from the main FlipHash implementation.
+- Full source: [`../Java implementation/fliphash/`](../Java%20implementation/fliphash/)
+- Algorithm explained: [`../README.md`](../README.md)
